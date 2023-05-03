@@ -1,42 +1,39 @@
-# Nuxt 3 Minimal Starter
+![< HalfCoder />](banner.png)
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Это проект сайта, который объединит всех разработчиков под одной крышей, чтобы мы могли спокойно пообсуждать общие темы, поспорить о вечном и наконец-то разобраться с будущем программирования.
 
-## Setup
+#### Что реализовано: 
+- Главная страница с функционалом
+- Есть ссылки на наши соцсети в Вк, Дзен и Телеграм
+- На сайте присутствует пользовательское соглашение
+- Система авторизации
 
-Make sure to install the dependencies:
+#### Что планируется: 
+1. Доработать сайт до PWA
+2. Заниматься его поддержкой и улучшением
 
-```bash
-# yarn
-yarn install
+#### Взаимосвязь компонентов:
 
-# npm
-npm install
+![Component relationships](ComponentDiagram.png)
 
-# pnpm
-pnpm install
-```
+#### Наш технологический стэк:
+- #### Frontend
+  - Nuxt3 + Pinia
+  - TypeScript 
+  - Scss
+- #### Backend 
+  - Python Django
+  - MySQL
 
-## Development Server
+#### Используемые библиотеки:
+- Axios
+- Vuex-persistedstate
+- Flatpickr
+- Composition API
 
-Start the development server on `http://localhost:3000`
+### Создатели проекта: 
 
-```bash
-npm run dev
-```
+Frontend: https://github.com/RoastedPikachu
+Backend: https://github.com/allelleo
 
-## Production
-
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Если у вас возникают какие-либо баги, то пишите на эту почту: **boriskarabytwork@gmail.com**
