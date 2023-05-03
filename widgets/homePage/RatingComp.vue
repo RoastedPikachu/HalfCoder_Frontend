@@ -36,7 +36,7 @@
       </div>
     </div>
     
-    <router-link to="/users" id="Rating_moreUsers">Ещё {{ countOfUsersResults }} {{countOfResultsText}}</router-link>
+    <NuxtLink to="/users" id="Rating_moreUsers">Ещё {{ countOfUsersResults }} {{countOfResultsText}}</NuxtLink>
   </section>
 </template>
 

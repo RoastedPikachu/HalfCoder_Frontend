@@ -6,7 +6,7 @@
       v-show="!isLoaded"
     ></p>
 
-    <router-link 
+    <NuxtLink
       :to="category.link" 
       class="recomendation" 
       v-for="category of categories.slice(0, 10)" 
@@ -14,7 +14,7 @@
       v-show="isLoaded"
     >
       {{ category.title }}
-    </router-link>
+    </NuxtLink>
 
     <button>  
       <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

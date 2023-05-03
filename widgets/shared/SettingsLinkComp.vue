@@ -2,7 +2,7 @@
   <span :class="{ whiteSettingsTheme: !isDarkTheme }">
     <img src="@/assets/settings_icon.svg" alt="Настройки">
     
-    <router-link to="/settings" class="profile_menuIcons_route">Настройки</router-link>
+    <NuxtLink to="/settings" class="profile_menuIcons_route">Настройки</NuxtLink>
   </span>
 </template>
 

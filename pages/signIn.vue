@@ -99,7 +99,7 @@
             payload.userName = result.data.username;
             payload.email = result.data.email;
 
-            store.setFirstDataAboutUser(payload);
+            this.store.setFirstDataAboutUser(payload);
           })
           .catch((e:any) => {
             console.log(e);
@@ -121,7 +121,7 @@
             const status:number | string = result.data.status;
 
             switch(status) {
-              case 'success': store.changeSignInStatus();  
+              case 'success': this.store.changeSignInStatus();  
                 this.getInfoAboutUser(token);
                 document.cookie =`token=${token}; path=/; max-age=2592000; secure=true`;
                 this.$router.push('/');

@@ -7,8 +7,8 @@
       <TheFooterComp/>
     </aside>
     
-    <SettingsComp/>
-  </section>
+    <SettingsComp/> 
+  </section> 
 </template>
 
 <script lang="ts">
@@ -21,11 +21,23 @@
   import SettingsComp from '@/widgets/settingsPage/SettingsComp.vue';
 
   export default defineComponent({
-    name: 'SettingsPage',
+    name: 'settings',
     setup() {
       const store = useMainStore();
       const isDarkTheme = ref(store.isDarkTheme);
-      const token = ref(document.cookie.slice(67));
+      const token = ref('' as string | undefined);
+
+      const getCookie = (name:string) => {
+        let matches = document.cookie.match(new RegExp(
+          //eslint-disable-next-line
+          "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+      }
+
+      onMounted(() => {
+        token.value = getCookie('token');
+      });
 
       watch(() => store.isDarkTheme, () => {
         isDarkTheme.value = store.isDarkTheme;
@@ -35,13 +47,14 @@
         store,
         isDarkTheme,
         token,
+        getCookie
       }
     },
     components: {
       TheHeaderComp,
       ProfileMenuComp,
       TheFooterComp,
-      SettingsComp
+      SettingsComp 
     }
   })
 </script>
@@ -61,6 +74,7 @@
       flex-wrap: wrap;
       width: 280px;
       height: 246px;
+      background-color: $DarkBgBlocksTheme;
       border: 2px solid $BorderColor;
       border-radius: 5px;
       transition: 400ms ease;

@@ -7,7 +7,7 @@
 
     <span>
       <img src="@/assets/connections_icon.svg" alt="Связи">
-      <router-link to="/createPost" class="route">Связи</router-link>
+      <NuxtLink to="/createPost" class="route">Связи</NuxtLink>
     </span>
 
     <span>
@@ -17,7 +17,7 @@
 
     <span>
       <img src="@/assets/events_icon.svg" alt="События">
-      <router-link to="/events" class="route">События</router-link>
+      <NuxtLink to="/events" class="route">События</NuxtLink>
     </span>
 
     <span>

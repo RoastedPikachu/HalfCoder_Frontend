@@ -3,17 +3,17 @@
     <h1> <p>&lt;</p> HalfCoder <p>/></p> </h1>
 
     <nav>
-      <router-link to="/" class="route">Главная</router-link>
+      <NuxtLink to="/" class="route">Главная</NuxtLink>
 
-      <router-link to="/events" class="route" v-if="isSignIn">События</router-link>
+      <NuxtLink to="/events" class="route" v-if="isSignIn">События</NuxtLink>
       <p v-else>События</p>
 
-      <router-link to="/settings" class="routeImg" v-if="isSignIn">
+      <NuxtLink to="/settings" class="routeImg" v-if="isSignIn">
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M10.9999 14C12.6568 14 13.9999 12.6569 13.9999 11C13.9999 9.3431 12.6568 8 10.9999 8C9.34304 8 7.99994 9.3431 7.99994 11C7.99994 12.6569 9.34304 14 10.9999 14Z" stroke="#747474" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M18.6224 9.3954L17.5247 6.7448L19 5L17 3L15.2647 4.48295L12.5578 3.36974L11.9353 1H9.981L9.3491 3.40113L6.70441 4.51596L5 3L3 5L4.45337 6.78885L3.3725 9.4463L1 10V12L3.40111 12.6555L4.51575 15.2997L3 17L5 19L6.79116 17.5403L9.397 18.6123L10 21H12L12.6045 18.6132L15.2551 17.5155C15.6969 17.8313 17 19 17 19L19 17L17.5159 15.2494L18.6139 12.598L20.9999 11.9772L21 10L18.6224 9.3954Z" stroke="#747474" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-      </router-link>
+      </NuxtLink>
 
       <div class="modalContainer">
         <button @click="changeNotifeActive()">

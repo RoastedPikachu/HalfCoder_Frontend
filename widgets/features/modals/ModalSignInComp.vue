@@ -1,8 +1,8 @@
 <template>
   <div id="ModalSignIn" v-if="active">
-    <router-link to="/signIn" class="routeButton">Вход</router-link>
+    <NuxtLink to="/signIn" class="routeButton">Вход</NuxtLink>
     
-    <router-link to="/registration" class="routeButton">Регистрация</router-link>
+    <NuxtLink to="/registration" class="routeButton">Регистрация</NuxtLink>
   </div>
 </template>
 

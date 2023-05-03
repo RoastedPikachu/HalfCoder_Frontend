@@ -21,10 +21,10 @@
           <input type="text" v-model="userName">
         </div>
 
-        <div>
+        <!-- <div>
           <p>Дата рождения</p>
           <input type="datetime-local" v-model="dateOfBirth">
-        </div>
+        </div> -->
       </div>
 
       <div class="mainBlock_Settings_InputsContainers">
