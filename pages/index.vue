@@ -108,7 +108,7 @@
          display: flex;
          flex-wrap: wrap;
          margin-top: 17px;
-         margin-left: 4%;  
+         margin-left: 4.5%;  
          width: 30.5%;
          height: 627px;
        }

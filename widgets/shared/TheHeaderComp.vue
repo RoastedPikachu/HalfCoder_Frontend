@@ -221,8 +221,8 @@
       }
       .modalContainer {
         position: relative;
-        width: 34px;
-        height: 34px;
+        width: 36px;
+        height: 36px;
         #ModalContainer_profile {
           background-color: #ffffff;
           img {
@@ -232,8 +232,11 @@
           }
         }
         button {
-          width: 34px;
-          height: 34px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 36px;
+          height: 36px;
           background-color: #1e1e1e;
           border: 0px;
           border-radius: 10px;

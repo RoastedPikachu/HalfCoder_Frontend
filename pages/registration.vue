@@ -46,7 +46,7 @@
 
         <div id="Registation_termsOfUse">
           <input type="checkbox" name="termsOfUse" v-model="agreeToTermsOfUse" > 
-          <label for="termsOfUse">Я принимаю условия <router-link to="/docs/termsOfUse" target="_blank" id="Registation_termsOfUse_route">Пользовательского соглашения</router-link></label>
+          <label for="termsOfUse">Я принимаю условия <NuxtLink to="/documents/termsOfUse" target="_blank" id="Registation_termsOfUse_route">Пользовательского соглашения</NuxtLink></label>
         </div>
 
         <button class="registration_button" type="button" @click="setValuesRegistration()" v-if="agreeToTermsOfUse">Зарегистрироваться</button>

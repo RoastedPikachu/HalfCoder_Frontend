@@ -29,7 +29,7 @@
 
         <button id="signIn_FormButton" type="button" @click="setValuesLogin()">Войти</button>
         
-        <router-link to="/docs/termsOfUse" target="_blank" class="route">Пользовательское соглашение</router-link>
+        <NuxtLink to="/documents/termsOfUse" target="_blank" class="route">Пользовательское соглашение</NuxtLink>
       </form>
     </div>
   </section>
@@ -102,7 +102,6 @@
             this.store.setFirstDataAboutUser(payload);
           })
           .catch((e:any) => {
-            console.log(e);
             this.error = 'Упс, что-то пошло не так';
           });
       },
@@ -123,11 +122,15 @@
             switch(status) {
               case 'success': this.store.changeSignInStatus();  
                 this.getInfoAboutUser(token);
+                
                 document.cookie =`token=${token}; path=/; max-age=2592000; secure=true`;
+
                 this.$router.push('/');
                 break;
+
               case 4: this.error = 'User с таким именем не найден';
                 break;
+
               case 5: this.error = 'Неверный пароль';
                 break;
             } 

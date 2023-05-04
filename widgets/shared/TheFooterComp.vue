@@ -5,7 +5,7 @@
 
       <a href="/" target="blank">Поддержка</a>
 
-      <NuxtLink to="/docs/termsOfUse" class="route" target="_blank">Документы</NuxtLink>
+      <NuxtLink to="/documents/termsOfUse" class="route" target="_blank">Документы</NuxtLink>
     </span>
 
     <span>©{{ year }} &lt; HalfCoder /></span>

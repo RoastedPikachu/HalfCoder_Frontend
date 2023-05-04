@@ -20,7 +20,7 @@
 
         <div class="mainBlock_childPosts_button">
           <button @click="changeModalActionsActive(post)">
-            <i class="fa-solid fa-ellipsis"></i>
+            <font-awesome-icon :icon="['fas', 'ellipsis']" />
           </button>
 
           <ModalPostActionsComp
@@ -44,18 +44,18 @@
 
       <div class="mainBlock_childPosts_activityInfo">
         <span>
-          <i class="fa-solid fa-heart"></i>
+          <font-awesome-icon :icon="['fas', 'heart']" />
           <p>{{ post.likes || 0 }}</p>
 
-          <i class="fa-solid fa-share"></i>
+          <font-awesome-icon :icon="['fas', 'share']" />
           <p>{{ post.reposts || 0 }}</p>
 
-          <i class="fa-solid fa-comment" @click="isCommentsOpen = !isCommentsOpen"></i>
+          <font-awesome-icon :icon="['fas', 'comment']" @click="isCommentsOpen = !isCommentsOpen" />
           <p>{{ Object.values(post.comments).length || 0 }}</p>
         </span>
 
         <span>
-          <i class="fa-solid fa-eye"></i>
+          <font-awesome-icon :icon="['fas', 'eye']" />
           <p>{{ post.views || 0 }}</p>
         </span>
       </div>
@@ -309,7 +309,7 @@
       ModalPostActionsComp,
       ItemBrieflyInfoComp,
       LoadingItemBrieflyInfoComp,
-      CommentComp
+      CommentComp,
     }
   })
 </script>
