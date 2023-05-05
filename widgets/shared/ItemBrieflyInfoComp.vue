@@ -1,45 +1,45 @@
 <template>
-  <div id="ElemBrieflyInfo" :class="{ whiteBrieflyInfoTheme: !isDarkTheme }">
-    <div class="ElemBrieflyInfo_Rating_infoUser_image">
-      <img 
-        :src="image" 
-        :alt="name"
-      >
+    <div id="ElemBrieflyInfo" :class="{ whiteBrieflyInfoTheme: !isDarkTheme }">
+        <div class="ElemBrieflyInfo_Rating_infoUser_image">
+            <img
+              :src="image"
+              :alt="name"
+            >
+        </div>
+
+        <span>
+            <p>{{ name }}</p>
+            <p>{{ employment }}</p>
+        </span>
     </div>
-    
-    <span>
-      <p>{{ name }}</p>
-      <p>{{ employment }}</p>
-    </span>
-  </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+    import { defineComponent } from 'vue';
   import { ref, watch } from 'vue';
   import { useMainStore } from '@/stores/main';
 
-  export default defineComponent({
-    name: 'ItemBrieflyInfoComp',
-    setup() {
-      const store = useMainStore();
-      const isDarkTheme = ref(store.isDarkTheme);
+    export default defineComponent({
+      name: 'ItemBrieflyInfoComp',
+        props: {
+            image: String,
+            name: String,
+            employment: String
+        },
+      setup(props) {
+        const store = useMainStore();
+        const isDarkTheme = ref(store.isDarkTheme);
 
-      watch(() => store.isDarkTheme, () => {
-        isDarkTheme.value = store.isDarkTheme;
-      });
+        watch(() => store.isDarkTheme, () => {
+          isDarkTheme.value = store.isDarkTheme;
+        });
 
-      return {
-        store,
-        isDarkTheme
-      }
-    },
-    props: {
-      image: String,
-      name: String,
-      employment: String
-    }
-  })
+        return {
+          store,
+          isDarkTheme
+        }
+      },
+    })
 </script>
 
 <style lang="scss" scoped>
@@ -84,6 +84,7 @@
         transition: 400ms ease;
       }
       p:last-child {
+        margin-top: 5px;
         color: #747474;
         font-size: 12px;
       }

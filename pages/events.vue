@@ -72,8 +72,8 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { ref, watch } from 'vue';
-  import axios from 'axios';
   import { useMainStore } from '@/stores/main';
+  import axios from 'axios';
   import TheHeaderComp from '@/widgets/shared/TheHeaderComp.vue';
   import ProfileSignInComp from '@/widgets/homePage/ProfileSignInComp.vue';
   import TheFooterComp from '@/widgets/shared/TheFooterComp.vue';
@@ -405,6 +405,8 @@
               background-color: rgba(61, 90, 255, 0.2);
               border: 1.5px solid $BgButtonColor;
               color: $BgButtonColor;
+              font-size: 14px;
+              font-family: $SpaceGrotesk;
             }
             button:last-child {
               width: 14%;

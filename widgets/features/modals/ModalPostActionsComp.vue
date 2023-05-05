@@ -9,7 +9,7 @@
     </button>
 
     <button>
-      <i class="fa-solid fa-flag"></i>
+      <Icon name="fa6-solid:font-awesome" class="icon"/>
       <p>Репорт</p> 
     </button>
   </div>
@@ -74,9 +74,9 @@
         width: 20px;
         height: 20px;
       }
-      i {
+      .icon {
         width: 20px;
-        height: 15px;
+        height: 17.5px;
         color: #747474;
         font-size: 16px;
       }

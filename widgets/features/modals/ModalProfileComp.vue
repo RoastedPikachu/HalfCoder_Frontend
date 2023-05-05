@@ -4,9 +4,9 @@
     v-if="active"
   >
     <ItemBrieflyInfoComp
-      :name="userInfo.name"
-      :image="userInfo.image"
-      :employment="userInfo.employment"
+      :name="name"
+      :image="image"
+      :employment="employment"
     />
 
     <button id="ModalProfileWindow_profileButton">Профиль</button>
@@ -29,65 +29,50 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { ref, watch } from 'vue';
-  import { useMainStore } from '@/stores/main';
-  import ItemBrieflyInfoComp from '@/widgets/shared/ItemBrieflyInfoComp.vue';
-  import SettingsLinkComp from '@/widgets/shared/SettingsLinkComp.vue';
-  import SupportLinkComp from '@/widgets/shared/SupportLinkComp.vue';
-  import SignOutButtonComp from '@/widgets/shared/buttons/SignOutButtonComp.vue';
+    import { defineComponent } from 'vue';
+    import { ref, watch } from 'vue';
+    import { useMainStore } from '@/stores/main';
+    import ItemBrieflyInfoComp from '@/widgets/shared/ItemBrieflyInfoComp.vue';
+    import SettingsLinkComp from '@/widgets/shared/SettingsLinkComp.vue';
+    import SupportLinkComp from '@/widgets/shared/SupportLinkComp.vue';
+    import SignOutButtonComp from '@/widgets/shared/buttons/SignOutButtonComp.vue';
 
-  interface UserInfo {
-    name: string,
-    employment: string,
-    image: string
-  }
+    export default defineComponent({
+      name: "ModalProfileComp",
+      props: {
+          name: String,
+          image: String,
+          employment: String,
+          active: Boolean,
+          token: String
+      },
+      setup() {
+        const store = useMainStore();
+        const isDarkTheme = ref(store.isDarkTheme);
+        const starStatus = ref(false);
 
-  export default defineComponent({
-    name: "ModalProfileComp",
-    setup() {
-      const store = useMainStore();
-      const isDarkTheme = ref(store.isDarkTheme);
-      const starStatus = ref(false);
-      const userInfo = ref({
-        name: store.userName,
-        employment: store.employment,
-        image: store.userImage
-      } as UserInfo);
+        const changeTheme = () => {
+          store.changeThemeColor();
+        }
 
-      const changeTheme = () => {
-        store.changeThemeColor();
-      }
+        watch(() => store.isDarkTheme, () => {
+          isDarkTheme.value = store.isDarkTheme;
+        });
 
-      watch(userInfo, () => {
-        userInfo.value.name = store.userName;
-        userInfo.value.employment = store.employment;
-        userInfo.value.image = store.userImage;
-      });
-      
-      watch(() => store.isDarkTheme, () => {
-        isDarkTheme.value = store.isDarkTheme;
-      });
-
-      return {
-        store,
-        isDarkTheme,
-        starStatus,
-        userInfo,
-        changeTheme
-      }
-    },
-    components: { 
-      ItemBrieflyInfoComp,
-      SettingsLinkComp,
-      SupportLinkComp,
-      SignOutButtonComp
-    },
-    props: {
-      active: Boolean,
-      token: String
-    }
-  })
+        return {
+          store,
+          isDarkTheme,
+          starStatus,
+          changeTheme
+        }
+      },
+      components: {
+        ItemBrieflyInfoComp,
+        SettingsLinkComp,
+        SupportLinkComp,
+        SignOutButtonComp
+      },
+    })
 </script>
 
 <style lang="scss" scoped>

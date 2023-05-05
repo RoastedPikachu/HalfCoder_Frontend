@@ -65,7 +65,7 @@
         }
       }
       #TechRuDesc {
-        margin-top: 20px;
+        margin-top: -30px;
         width: 100%;
         color: #747474;
         font-size: 18px;

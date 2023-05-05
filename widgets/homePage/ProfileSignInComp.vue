@@ -3,25 +3,25 @@
     <div id="Profile_topLine"></div>
 
     <div id="Profile_mainInfo">
-      <img :src="userInfo.image" alt="Фото профиля">
-      <h2>{{ userInfo.name }}</h2>
-      <p>{{ userInfo.employment }}</p>
+      <img :src="allInfoAboutUser.userImage" alt="Фото профиля">
+      <h2>{{ allInfoAboutUser.firstName }} {{ allInfoAboutUser.secondName}}</h2>
+      <p>{{ allInfoAboutUser.employment }}</p>
       <p>I'd love to change the world, but they won't give me the source code</p>
     </div>
     
     <span id="Profile_secondaryInfo">
       <div>
-        <p>{{ userInfo.followers }}</p> 
+        <p>{{ allInfoAboutUser.followers }}</p>
         <p>{{ followersCountText }}</p>
       </div>
 
       <div>
-        <p>{{ userInfo.posts }}</p>
+        <p>{{ allInfoAboutUser.posts }}</p>
         <p>{{ postsCountText }}</p>
       </div>
 
       <div>
-        <p>{{ userInfo.views }}</p>
+        <p>{{ allInfoAboutUser.views }}</p>
         <p>{{ viewsCountText }}</p>
       </div>
     </span>
@@ -33,88 +33,83 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+    import { defineComponent } from 'vue';
   import { ref, onMounted, watch } from 'vue';
   import { useMainStore } from '@/stores/main';
   import ProfileMenuComp from '@/widgets/features/ProfileMenuComp.vue';
 
-  interface UserInfo {
-    image: string,
-    name: string,
-    employment: string,
-    posts: number,
-    followers: number,
-    views: number
-  }
-
-  export default defineComponent({
-    name: 'ProfileSignInComp',
-    setup() {
-      const store = useMainStore();
-      const isDarkTheme = ref(store.isDarkTheme);
-      const userInfo = ref({
-        image: store.userImage,
-        name: `${store.firstName} ${store.secondName}`,
-        employment: store.employment,
-        posts: store.posts,
-        followers: store.followers,
-        views: store.views
-      } as UserInfo);
-      const postsCountText = ref('');
-      const followersCountText = ref('');
-      const viewsCountText = ref('');
-
-      const setCountText = (numArr:number[], targetArr:string[], textArr:string[][]) => {
-        for(let i = 0; i < numArr.length; i++) {
-          let n:number = numArr[i] % 100;
-
-          if(n >= 5 && n <= 20) {
-            targetArr[i] = textArr[i][2];
-          } else if(n === 1) {
-            targetArr[i] = textArr[i][0]
-          } else if(n >= 2 && n <= 4) {
-            targetArr[i] = textArr[i][1]
-          } else {
-            targetArr[i] = textArr[i][2];
-          }
-        } 
-        postsCountText.value = targetArr[0];
-        followersCountText.value = targetArr[1];
-        viewsCountText.value = targetArr[2]; 
-      }
-
-      onMounted(() => {
-        setCountText([userInfo.value.posts, userInfo.value.followers, userInfo.value.views], [postsCountText.value, 
-          followersCountText.value, viewsCountText.value] ,[['Пост', 'Поста', 'Постов'], 
-          ['Подписчик', 'Подписчика', 'Подписчиков'], ['Просмотр', 'Просмотра', 'Просмотров']]);
-      }); 
-
-      watch(userInfo, () => {
-        userInfo.value.image = store.userImage;
-        userInfo.value.name = `${store.firstName} ${store.secondName}`;
-        userInfo.value.employment = store.employment;
-        userInfo.value.posts = store.posts;
-        userInfo.value.followers = store.followers;
-        userInfo.value.views = store.views;
-      });
-
-      watch(() => store.isDarkTheme, () => {
-        isDarkTheme.value = store.isDarkTheme;
-      });
-
-      return {
-        store,
-        isDarkTheme,
-        userInfo,
-        postsCountText,
-        followersCountText,
-        viewsCountText
-      }
-    },
-    components: {
-      ProfileMenuComp
+    interface AllInfoAboutUser{
+        posts: number,
+        followers?: number,
+        views: number,
+        firstName: string,
+        secondName: string,
+        userImage: string,
+        userName: string,
+        employment: string,
+        email: string
     }
-  })
+
+    export default defineComponent({
+        name: 'ProfileSignInComp',
+        props: {
+            allInfoAboutUser: {
+                type: Object as () => AllInfoAboutUser,
+                required: true
+            }
+        },
+        setup(props) {
+            const store = useMainStore();
+            const isDarkTheme = ref(store.isDarkTheme);
+            const postsCountText = ref('');
+            const followersCountText = ref('');
+            const viewsCountText = ref('');
+
+            const setCountText = (numArr:number[], targetArr:string[], textArr:string[][]) => {
+                for (let i = 0; i < numArr.length; i++) {
+                    let n: number = numArr[i] % 100;
+
+                    if (n >= 5 && n <= 20) {
+                        targetArr[i] = textArr[i][2];
+                    } else if (n === 1) {
+                        targetArr[i] = textArr[i][0]
+                    } else if (n >= 2 && n <= 4) {
+                        targetArr[i] = textArr[i][1]
+                    } else {
+                        targetArr[i] = textArr[i][2];
+                    }
+                }
+                postsCountText.value = targetArr[0];
+                followersCountText.value = targetArr[1];
+                viewsCountText.value = targetArr[2];
+            }
+
+            watch(() => store.isDarkTheme, () => {
+                isDarkTheme.value = store.isDarkTheme;
+            });
+
+            return {
+                store,
+                isDarkTheme,
+                postsCountText,
+                followersCountText,
+                viewsCountText,
+                setCountText
+            }
+        },
+        mounted() {
+              this.setCountText([this.allInfoAboutUser.posts, this.allInfoAboutUser.followers, this.allInfoAboutUser.views],
+                  [this.postsCountText, this.followersCountText, this.viewsCountText],
+                  [
+                      ['Пост', 'Поста', 'Постов'],
+                      ['Подписчик', 'Подписчика', 'Подписчиков'],
+                      ['Просмотр', 'Просмотра', 'Просмотров']
+                  ]);
+        },
+        components: {
+            ProfileMenuComp
+        }
+    })
 </script>
 
 <style lang="scss" scoped>

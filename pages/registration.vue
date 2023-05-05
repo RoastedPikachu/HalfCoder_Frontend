@@ -150,7 +150,7 @@
     flex-wrap: wrap;
     padding: 15px 15px;
     width: 520px;
-    height: 400px;
+    height: 420px;
     background-color: #141414;
     border: 2px solid rgba(116, 116, 116, 0.5);
     border-radius: 5px;
@@ -193,6 +193,8 @@
             border: 1.5px solid #747474;
             border-radius: 5px;
             color: #ffffff;
+            font-size: 14px;
+            font-family: 'Space Grotesk', sans-serif; 
             outline: none;
         }
       }
@@ -228,6 +230,7 @@
         color: #ffffff;
         font-size: 14px;
         font-weight: 700;
+        font-family: 'Space Grotesk', sans-serif;
         cursor: pointer;
       }
       .registration_notActiveButton {

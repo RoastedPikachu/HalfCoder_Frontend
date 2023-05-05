@@ -19,7 +19,7 @@
         </span>
 
         <button>
-          <i class="fa-solid fa-eye"></i>
+          <Icon name="fa6-solid:eye" class="icon"/>
         </button> 
       </div>
 
@@ -36,7 +36,7 @@
         </span>
         
         <button>
-          <i class="fa-solid fa-eye"></i>
+          <Icon name="fa6-solid:eye" class="icon"/>
         </button>
       </div>
     </div>
@@ -206,18 +206,15 @@
           align-items: center;
           width: 42.5px;
           height: 32.5px;
-          background-color: transparent;
+          background-color: #1e1e1e;
           border: 0;
           border-radius: 50px;
           outline: none;
           cursor: pointer;
-          i {
+          .icon {
             color: $IconColor;
             font-size: 18px;
             transition: 400ms ease;
-          }
-          i:hover {
-            color: $HoverColor
           }
         }
       }

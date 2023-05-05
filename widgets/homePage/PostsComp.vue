@@ -1,9 +1,9 @@
 <template>
   <section id="MainBlock_childPosts">
-    <div class="mainBlock_childPosts_info" 
-      :class="{ whitePostsTheme: !isDarkTheme, openComments: isCommentsOpen}" 
-      v-for="post of posts" 
-      :key="post.id" 
+    <div class="mainBlock_childPosts_info"
+         :class="{ whitePostsTheme: !isDarkTheme, openComments: isCommentsOpen}"
+         v-for="post of posts"
+         :key="post.id"
     >
       <div class="mainBlock_childPosts_topInfo">
         <div class="mainBlock_childPosts_userInfo_loading" v-show="!isLoaded">
@@ -20,7 +20,7 @@
 
         <div class="mainBlock_childPosts_button">
           <button @click="changeModalActionsActive(post)">
-            <font-awesome-icon :icon="['fas', 'ellipsis']" />
+            <Icon name="fa6-solid:ellipsis"/>
           </button>
 
           <ModalPostActionsComp
@@ -44,18 +44,18 @@
 
       <div class="mainBlock_childPosts_activityInfo">
         <span>
-          <font-awesome-icon :icon="['fas', 'heart']" />
+          <Icon name="fa6-solid:heart" class="icon"/>
           <p>{{ post.likes || 0 }}</p>
 
-          <font-awesome-icon :icon="['fas', 'share']" />
+          <Icon name="fa6-solid:share" class="icon"/>
           <p>{{ post.reposts || 0 }}</p>
 
-          <font-awesome-icon :icon="['fas', 'comment']" @click="isCommentsOpen = !isCommentsOpen" />
+          <Icon name="fa6-solid:comment" class="icon" @click="isCommentsOpen = !isCommentsOpen"/>
           <p>{{ Object.values(post.comments).length || 0 }}</p>
         </span>
 
         <span>
-          <font-awesome-icon :icon="['fas', 'eye']" />
+          <Icon name="fa6-solid:eye" class="icon"/>
           <p>{{ post.views || 0 }}</p>
         </span>
       </div>
@@ -242,6 +242,10 @@
         })
       }
 
+      // const openComments = (post:any):void => {
+      //   post.
+      // }
+
       onMounted(() => {
         window.addEventListener('click', event => {
           if(event.target !== null) {
@@ -409,13 +413,13 @@
           justify-content: flex-start;
           align-items: center;
           width: 35%;
-          i {
+          .icon {
             color: $IconColor;
-            font-size: 20px;
+            font-size: 100px;
             transition: 400ms ease;
             cursor: pointer;
           }
-          i:hover {
+          .icon:hover {
             color: $HoverColor;
           }
           p {
@@ -424,7 +428,7 @@
           }
         }
         span:last-child {
-          width: 5%;
+          width: 7.5%;
         }
       }
     }
