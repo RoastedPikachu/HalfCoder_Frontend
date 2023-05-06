@@ -17,18 +17,18 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { ref, watch } from 'vue';
+  import { ref } from 'vue';
   import { useMainStore } from '@/stores/main';
 
   export default defineComponent({
     name: 'ModalPostActions',
     setup() {
       const store = useMainStore();
-      const isDarkTheme = ref(store.isDarkTheme); 
+      const isDarkTheme = ref(store.isDarkTheme);
 
-      watch(() => store.isDarkTheme, () => {
-        isDarkTheme.value = store.isDarkTheme;
-      });
+      store.$subscribe(() => {
+          isDarkTheme.value = store.isDarkTheme;
+      })
 
       return {
         store,

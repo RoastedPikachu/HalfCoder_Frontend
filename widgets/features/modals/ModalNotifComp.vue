@@ -39,7 +39,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { ref, watch } from 'vue';
+  import { ref } from 'vue';
   import { useMainStore } from '@/stores/main';
 
   export default defineComponent({
@@ -48,9 +48,9 @@
       const store = useMainStore();
       const isDarkTheme = ref(store.isDarkTheme);
 
-      watch(() => store.isDarkTheme, () => {
-        isDarkTheme.value = store.isDarkTheme;
-      });
+      store.$subscribe(() => {
+          isDarkTheme.value = store.isDarkTheme;
+      })
 
       return {
         store,
@@ -110,7 +110,7 @@
       width: 150px;
       height: 27.5px;
       background-color: #3d5aff;
-      border: 0px;
+      border: none;
       border-radius: 5px;
       color: #ffffff;
       font-size: 14px;

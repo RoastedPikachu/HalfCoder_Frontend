@@ -42,7 +42,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { ref, watch } from 'vue';
+  import { ref } from 'vue';
   import { useMainStore } from '@/stores/main';
   import SettingsLinkComp from '@/widgets/shared/SettingsLinkComp.vue';
 
@@ -53,13 +53,10 @@
       const isDarkTheme = ref(store.isDarkTheme);
       const isSignIn = ref(false);
 
-      watch(isSignIn, () => {
-        isSignIn.value = store.isSignIn;
-      });
-
-      watch(() => store.isDarkTheme, () => {
-        isDarkTheme.value = store.isDarkTheme;
-      });
+      store.$subscribe(() => {
+          isSignIn.value = store.isSignIn;
+          isDarkTheme.value = store.isDarkTheme;
+      })
 
       return {
         store,

@@ -16,28 +16,28 @@
 
 <script lang="ts">
     import { defineComponent } from 'vue';
-  import { ref, watch } from 'vue';
-  import { useMainStore } from '@/stores/main';
+    import { ref } from 'vue';
+    import { useMainStore } from '@/stores/main';
 
     export default defineComponent({
-      name: 'ItemBrieflyInfoComp',
+        name: 'ItemBrieflyInfoComp',
         props: {
             image: String,
             name: String,
             employment: String
         },
-      setup(props) {
-        const store = useMainStore();
-        const isDarkTheme = ref(store.isDarkTheme);
+        setup(props) {
+            const store = useMainStore();
+            const isDarkTheme = ref(store.isDarkTheme);
 
-        watch(() => store.isDarkTheme, () => {
-          isDarkTheme.value = store.isDarkTheme;
-        });
+            store.$subscribe(() => {
+              isDarkTheme.value = store.isDarkTheme;
+            })
 
-        return {
-          store,
-          isDarkTheme
-        }
+            return {
+              store,
+              isDarkTheme
+            }
       },
     })
 </script>

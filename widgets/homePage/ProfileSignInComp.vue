@@ -40,7 +40,7 @@
 
     interface AllInfoAboutUser{
         posts: number,
-        followers?: number,
+        followers: number,
         views: number,
         firstName: string,
         secondName: string,
@@ -84,9 +84,9 @@
                 viewsCountText.value = targetArr[2];
             }
 
-            watch(() => store.isDarkTheme, () => {
+            store.$subscribe(() => {
                 isDarkTheme.value = store.isDarkTheme;
-            });
+            })
 
             return {
                 store,
@@ -206,16 +206,15 @@
       }
       div:nth-child(2) {
         width: 25%;
-        border: 1px solid $BorderColor;
+        border: 0px solid $BorderColor;
         border-width: 0 2px 0;
       }
     }
     #Profile_centerLine {
       position: relative;
       width: 87.5%;
-      height: 1px;
-      border: 2px solid $BorderColor;
-      border-width: 2px 0 0;
+      height: 2px;
+      background-color: $BorderColor;
       border-radius: 5px;
     }
   }

@@ -88,7 +88,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { ref, onMounted, watch } from 'vue';
+  import { ref, onMounted } from 'vue';
   import { useMainStore } from '@/stores/main';
   import axios from 'axios';
   import ModalPostActionsComp from '@/widgets/features/modals/ModalPostActionsComp.vue';
@@ -261,9 +261,9 @@
         });
       });
 
-      watch(() => store.isDarkTheme, () => {
-        isDarkTheme.value = store.isDarkTheme;
-      });
+      store.$subscribe(() => {
+          isDarkTheme.value = store.isDarkTheme;
+      })
 
       return {
         store,
@@ -293,11 +293,9 @@
           headers: {'Content-Type': 'application/json;charset=utf-8'}
         })
           .then((res:any) => {
-            const result = res;
+            this.posts = Object.values(res.data);
 
-            this.posts = Object.values(result.data);  
-
-            if(result) {
+            if(res) {
               this.isLoaded = true;
             }
           })

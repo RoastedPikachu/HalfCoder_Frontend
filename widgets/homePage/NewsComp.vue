@@ -26,7 +26,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';  
-  import { ref, watch } from 'vue';
+  import { ref } from 'vue';
   import { useMainStore } from '@/stores/main';
   import axios from 'axios';
 
@@ -84,9 +84,9 @@
         }
       ]);
 
-      watch(() => store.isDarkTheme, () => {
-        isDarkTheme.value = store.isDarkTheme;
-      });
+      store.$subscribe(() => {
+          isDarkTheme.value = store.isDarkTheme;
+      })
     
       return {
         store,
@@ -102,9 +102,7 @@
 
         axios.get(url.toString())
           .then((res:any) => {
-            const result = res;
-
-            this.news = Object.values(result.data);
+            this.news = Object.values(res.data);
 
             if(this.news.length) {
               this.isLoaded = true;

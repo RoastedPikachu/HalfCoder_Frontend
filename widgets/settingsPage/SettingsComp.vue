@@ -52,7 +52,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { ref, onMounted, watch } from 'vue';
+  import { ref, onMounted } from 'vue';
   import { useMainStore } from '@/stores/main';
   //import flatpickr from "flatpickr";
 
@@ -94,9 +94,9 @@
         //setTimeout(() => flatpickr("input[type=datetime-local]", {}), 500);
       });
 
-      watch(() => store.isDarkTheme, () => {
-        isDarkTheme.value = store.isDarkTheme;
-      });
+      store.$subscribe(() => {
+          isDarkTheme.value = store.isDarkTheme;
+      })
 
       return {
         store,

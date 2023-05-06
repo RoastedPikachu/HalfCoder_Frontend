@@ -17,7 +17,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { ref, watch } from 'vue';
+  import { ref } from 'vue';
   import { useMainStore } from '@/stores/main';
 
   export default defineComponent({
@@ -32,13 +32,10 @@
         isCookieOpen.value = store.isCookieOpen;
       }
 
-      watch(() => store.isCookieOpen, () => {
-        isCookieOpen.value = store.isCookieOpen;
-      })
-
-      watch(() => store.isDarkTheme, () => {
-        isDarkTheme.value = store.isDarkTheme;
-      });
+        store.$subscribe(() => {
+            isCookieOpen.value = store.isCookieOpen;
+            isDarkTheme.value = store.isDarkTheme;
+        })
 
       return {
         store,
