@@ -12,51 +12,51 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { ref, watch } from 'vue';
-  import { useMainStore } from '@/stores/main';
-  import TheHeaderComp from '@/widgets/shared/TheHeaderComp.vue';
-  import TheFooterComp from '@/widgets/shared/TheFooterComp.vue';
-  import ProfileMenuComp from '@/widgets/features/ProfileMenuComp.vue';
-  import SettingsComp from '@/widgets/settingsPage/SettingsComp.vue';
+    import { defineComponent } from 'vue';
+    import { ref } from 'vue';
+    import { useMainStore } from '@/stores/main';
+    import TheHeaderComp from '@/widgets/shared/TheHeaderComp.vue';
+    import TheFooterComp from '@/widgets/shared/TheFooterComp.vue';
+    import ProfileMenuComp from '@/widgets/features/ProfileMenuComp.vue';
+    import SettingsComp from '@/widgets/settingsPage/SettingsComp.vue';
 
-  export default defineComponent({
-    name: 'settings',
-    setup() {
-      const store = useMainStore();
-      const isDarkTheme = ref(store.isDarkTheme);
-      const token = ref('' as string | undefined);
+    export default defineComponent({
+        name: 'settings',
+        setup() {
+            const store = useMainStore();
+            const token = ref('' as string | undefined);
+            const isDarkTheme = ref(store.isDarkTheme);
 
-      const getCookie = (name:string) => {
-        let matches = document.cookie.match(new RegExp(
-          //eslint-disable-next-line
-          "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-        ));
-        return matches ? decodeURIComponent(matches[1]) : undefined;
-      }
+            const getCookie = (name:string) => {
+                let matches = document.cookie.match(new RegExp(
+                  //eslint-disable-next-line
+                  "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+                ));
+                return matches ? decodeURIComponent(matches[1]) : undefined;
+            }
 
-      onMounted(() => {
-        token.value = getCookie('token');
-      });
+            onMounted(() => {
+                token.value = getCookie('token');
+            });
 
-      watch(() => store.isDarkTheme, () => {
-        isDarkTheme.value = store.isDarkTheme;
-      });
+            store.$subscribe(() => {
+                isDarkTheme.value = store.isDarkTheme;
+            })
 
-      return {
-        store,
-        isDarkTheme,
-        token,
-        getCookie
-      }
-    },
-    components: {
-      TheHeaderComp,
-      ProfileMenuComp,
-      TheFooterComp,
-      SettingsComp 
-    }
-  })
+            return {
+                store,
+                token,
+                isDarkTheme,
+                getCookie
+            }
+        },
+        components: {
+            TheHeaderComp,
+            ProfileMenuComp,
+            TheFooterComp,
+            SettingsComp
+        }
+    })
 </script>
 
 <style lang="scss" scoped>
@@ -73,7 +73,7 @@
       justify-content: center;
       flex-wrap: wrap;
       width: 280px;
-      height: 246px;
+      height: 296px;
       background-color: $DarkBgBlocksTheme;
       border: 2px solid $BorderColor;
       border-radius: 5px;

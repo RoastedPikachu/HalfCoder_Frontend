@@ -1,8 +1,15 @@
 <template>
-  <TheHeaderComp/>
+  <TheHeaderComp
+          :token="token"
+          :name="allInfoAboutUser.firstName + ' ' + allInfoAboutUser.secondName"
+          :image="allInfoAboutUser.userImage"
+          :employment="allInfoAboutUser.employment"
+  />
   <section id="mainBlock">
     <aside>
-      <ProfileSignInComp/>
+      <ProfileSignInComp
+              :allInfoAboutUser="allInfoAboutUser"
+      />
 
       <TheFooterComp/>
     </aside>
@@ -70,8 +77,8 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { ref, watch } from 'vue';
+import {defineComponent, onMounted} from 'vue';
+  import { ref } from 'vue';
   import { useMainStore } from '@/stores/main';
   import axios from 'axios';
   import TheHeaderComp from '@/widgets/shared/TheHeaderComp.vue';
@@ -91,8 +98,20 @@
     name: 'EventsPage',
     setup() {
       const store = useMainStore();
+      const token = ref('' as string | undefined);
       const isLoaded = ref(false);
       const isDarkTheme = ref(store.isDarkTheme);
+      const allInfoAboutUser = ref({
+          posts: store.posts,
+          followers: store.followers,
+          views: store.views,
+          firstName: store.firstName,
+          secondName: store.secondName,
+          userImage: store.userImage,
+          userName: store.userName,
+          employment: store.employment,
+          email: store.email
+      });
       const events = ref([
         {
           id: 0,
@@ -142,15 +161,41 @@
         }
       ] as Event[]);
 
-      watch(() => store.isDarkTheme, () => {
-        isDarkTheme.value = store.isDarkTheme;
+      const getCookie = (name:string) => {
+          let matches = document.cookie.match(new RegExp(
+              //eslint-disable-next-line
+              "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+          ));
+          return matches ? decodeURIComponent(matches[1]) : undefined;
+      }
+
+      onMounted(() => {
+          token.value = getCookie('token');
       });
+
+      store.$subscribe(() => {
+          isDarkTheme.value = store.isDarkTheme;
+          allInfoAboutUser.value = {
+              posts: store.posts,
+              followers: store.followers,
+              views: store.views,
+              firstName: store.firstName,
+              secondName: store.secondName,
+              userImage: store.userImage,
+              userName: store.userName,
+              employment: store.employment,
+              email: store.email
+          }
+      })
 
       return {
         store,
+        token,
         isDarkTheme,
         isLoaded,
+        allInfoAboutUser,
         events,
+        getCookie
       }
     },
     methods: {
@@ -200,7 +245,7 @@
       align-items: center;
       flex-wrap: wrap;
       width: 23.5%;
-      height: 680px;
+      height: 600px;
     }
     .mainInfoAboutEvents {
       padding: 2.5% 2.5%;

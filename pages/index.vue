@@ -1,10 +1,5 @@
 <template>
-    <TheHeaderComp
-        :token="token"
-        :name="allInfoAboutUser.firstName + ' ' + allInfoAboutUser.secondName"
-        :image="allInfoAboutUser.userImage"
-        :employment="allInfoAboutUser.employment"
-    />
+    <TheHeaderComp/>
 
     <section id="MainBlock">
         <aside id="MainBlock_info">
@@ -13,7 +8,7 @@
                     :allInfoAboutUser="allInfoAboutUser"
             />
 
-            <ProfileNotSignInComp v-if="!isSignIn"/>
+            <ProfileNotSignInComp v-else/>
 
             <CompaniesComp/>
         </aside>
@@ -31,14 +26,13 @@
             </aside>
         </section>
     </section>
-    <CookieComp/>
+    <CookieComp v-if="isCookieOpen"/>
 </template>
 
 <script lang="ts">
     import { defineComponent } from 'vue';
-    import { ref, onMounted } from 'vue';
+    import { ref } from 'vue';
     import { useMainStore } from '@/stores/main';
-    import axios from 'axios';
 
     import TheHeaderComp from '@/widgets/shared/TheHeaderComp.vue';
     import ProfileSignInComp from '@/widgets/homePage/ProfileSignInComp.vue';
@@ -50,8 +44,9 @@
     import NewsComp from '@/widgets/homePage/NewsComp.vue';
     import TheFooterComp from '@/widgets/shared/TheFooterComp.vue';
     import CookieComp from '@/widgets/shared/CookieComp.vue';
+    import axios from "axios";
 
-    interface AllInfoAboutUser{
+    export interface AllInfoAboutUser{
         posts: number,
         followers: number,
         views: number,
@@ -60,66 +55,67 @@
         userImage: string,
         userName: string,
         employment: string,
-        email: string
+        email: string,
     }
 
     export default defineComponent({
         name: 'HomePage',
         setup() {
             const store = useMainStore();
-            const token = ref('' as string | undefined);
-            const isSignIn = ref(false);
-            const allInfoAboutUser = ref({} as AllInfoAboutUser);
-
-            const getCookie = (name:string) => {
-                let matches = document.cookie.match(new RegExp(
-                    //eslint-disable-next-line
-                    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-                ));
-                return matches ? decodeURIComponent(matches[1]) : undefined;
-            }
-
-            onMounted(() => {
-                token.value = getCookie('token') ;
-                isSignIn.value = store.isSignIn;
-            });
+            const token = ref(store.token);
+            const isSignIn = ref(store.isSignIn);
+            const isCookieOpen = ref(store.isCookieOpen);
+            const allInfoAboutUser = ref({
+                posts: 0,
+                followers: 0,
+                views: 0,
+                firstName: '',
+                secondName: '',
+                userImage: '',
+                userName: '',
+                employment: '',
+                email: ''
+            } as AllInfoAboutUser);
 
             return {
                 store,
                 token,
                 isSignIn,
+                isCookieOpen,
                 allInfoAboutUser,
-                getCookie
             }
         },
         methods: {
             async getInfoAboutUser() {
                 const url = new URL('http://79.174.12.75:80/api/account/read/data/');
 
-                axios.post(url.toString(), { token: this.token }, {
+                axios.post(url.toString(), { token: this.store.token }, {
                     headers: {'Content-Type': 'application/json;charset=utf-8'}
                 })
                     .then((res:any) => {
-                        const result = res;
-
-                        console.log(result);
+                        this.store.changeDataAboutUser({
+                            name: `${res.data.first_name} ${res.data.last_name}`,
+                            userImage: res.data.photo,
+                            employment: res.data.profile.Work,
+                        });
 
                         this.allInfoAboutUser.posts = 0;
                         this.allInfoAboutUser.followers = 0;
                         this.allInfoAboutUser.views = 0;
-                        this.allInfoAboutUser.firstName = result.data.first_name;
-                        this.allInfoAboutUser.secondName = result.data.last_name;
-                        this.allInfoAboutUser.userImage = result.data.photo;
-                        this.allInfoAboutUser.userName = result.data.username;
-                        this.allInfoAboutUser.employment = result.data.profile.Work;
-                        this.allInfoAboutUser.email = result.data.email;
+
+                        this.allInfoAboutUser.firstName = res.data.first_name;
+                        this.allInfoAboutUser.secondName = res.data.last_name;
+                        this.allInfoAboutUser.userImage = res.data.photo;
+                        this.allInfoAboutUser.userName = res.data.username;
+                        this.allInfoAboutUser.employment = res.data.profile.Work;
+                        this.allInfoAboutUser.email = res.data.email;
                     })
                     .catch((e:any) => {
                         this.$router.push('/techWorks');
                     });
             },
         },
-        mounted() {
+        beforeMount() {
             this.getInfoAboutUser();
         },
         components: {

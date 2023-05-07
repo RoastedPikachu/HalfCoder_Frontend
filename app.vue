@@ -6,16 +6,11 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { ref, onMounted } from 'vue';
+  import { ref } from 'vue';
   import { useMainStore } from '@/stores/main';
 
   export default defineComponent({
     name: 'App',
-    data() {
-      return {
-
-      }
-    },
     setup() {
       const store = useMainStore();
       const isDarkTheme = ref(store.isDarkTheme);
@@ -23,17 +18,18 @@
       const changeBodyTheme = () => {
         if(isDarkTheme.value) {
           document.body.style.backgroundColor="#1e1e1e";
+          document.body.style.colorScheme="dark";
         } else {
           document.body.style.backgroundColor="#ffffff";
+          document.body.style.colorScheme="light";
         }
       }
 
-      onMounted(() => {
-        setInterval(() => {
+      store.$subscribe(() => {
           isDarkTheme.value = store.isDarkTheme;
-          changeBodyTheme(); 
-        }, 150);
-      });
+          console.log(isDarkTheme.value);
+          changeBodyTheme();
+      })
 
       return {
         store,

@@ -44,9 +44,9 @@
           </div>
         </div>
 
-        <div id="Registation_termsOfUse">
+        <div id="Registration_termsOfUse">
           <input type="checkbox" name="termsOfUse" v-model="agreeToTermsOfUse" > 
-          <label for="termsOfUse">Я принимаю условия <NuxtLink to="/documents/termsOfUse" target="_blank" id="Registation_termsOfUse_route">Пользовательского соглашения</NuxtLink></label>
+          <label for="termsOfUse">Я принимаю условия <NuxtLink to="/documents/termsOfUse" target="_blank" id="Registration_termsOfUse_route">Пользовательского соглашения</NuxtLink></label>
         </div>
 
         <button class="registration_button" type="button" @click="setValuesRegistration()" v-if="agreeToTermsOfUse">Зарегистрироваться</button>
@@ -100,8 +100,7 @@
           headers: {'Content-Type': 'application/json;charset=utf-8'}
         })
           .then((res:any) => {
-            const result = res;
-            const status:number | string = result.data.status;
+            const status:number | string = res.data.status;
 
             switch(status) {
               case 'success': this.$router.push('/signIn');
@@ -198,7 +197,7 @@
             outline: none;
         }
       }
-      #Registation_termsOfUse {
+      #Registration_termsOfUse {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -214,7 +213,7 @@
           color: #ffffff;
           font-size: 14px;
           font-family: 'Space Grotesk', sans-serif;
-          #Registation_termsOfUse_route {
+          #Registration_termsOfUse_route {
             color: #3d5aff;
             text-decoration: none;
             outline: none;
@@ -225,7 +224,7 @@
         width: 180px;
         height: 35px;
         background-color: #3d5aff;
-        border: 0px;
+        border: none;
         border-radius: 5px;
         color: #ffffff;
         font-size: 14px;
