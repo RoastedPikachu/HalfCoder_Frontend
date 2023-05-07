@@ -139,7 +139,7 @@
     justify-content: center;
     flex-wrap: wrap;
     width: 100%;
-    height: 600px;
+    height: 590px;
     border: 2px solid $BorderColor;
     border-radius: 5px;
     transition: 400ms ease;

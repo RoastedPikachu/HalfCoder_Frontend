@@ -70,16 +70,14 @@
 
     export default defineComponent({
         name: 'HeaderComp',
-        props: {
-            token: String,
-            name: String,
-            image: String,
-            employment: String
-        },
-        setup(props) {
+        setup() {
             const store = useMainStore();
             const isDarkTheme = ref(store.isDarkTheme);
             const isSignIn = ref(store.isSignIn);
+            const token = ref(store.token);
+            const name = ref(`${store.firstName} ${store.secondName}`);
+            const image = ref(store.userImage);
+            const employment = ref(store.employment);
             const hasNotificationsStatus = ref(true);
             const modalNotifActive = ref(false);
             const modalProfileActive = ref(false);
@@ -127,6 +125,10 @@
                 store,
                 isDarkTheme,
                 isSignIn,
+                token,
+                name,
+                image,
+                employment,
                 hasNotificationsStatus,
                 modalNotifActive,
                 modalProfileActive,

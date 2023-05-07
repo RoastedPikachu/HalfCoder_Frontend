@@ -51,7 +51,7 @@
     setup() {
       const store = useMainStore();
       const isDarkTheme = ref(store.isDarkTheme);
-      const isSignIn = ref(false);
+      const isSignIn = ref(store.isSignIn);
 
       store.$subscribe(() => {
           isSignIn.value = store.isSignIn;
@@ -152,6 +152,7 @@
 
   .whiteProfileMenuTheme {
     color: $WhiteMenuFontColor;
+    background-color: transparent;
     span {
       .route {
         color: $WhiteMenuFontColor;
